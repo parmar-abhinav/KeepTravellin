@@ -14,11 +14,10 @@ import {
   NavbarText
 } from 'reactstrap';
 
-const Home = (props) => {
+const CompanyHome = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-
 
   return (
     <div>
@@ -28,13 +27,13 @@ const Home = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/destination"><span class="fa fa-map-marker fa-lg"></span> Destination</NavLink>
+              <NavLink href="/addservice"><span class="fa fa-plus fa-lg"></span> Add Service</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/maketrip"><span class="fa fa-plane fa-lg"></span> MakeTrip</NavLink>
+              <NavLink href="/viewservice"><span class="fa fa-eye fa-lg"></span> View Service</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/addstory"><span class="fa fa-plus fa-lg"></span> AddStory</NavLink>
+              <NavLink href="/checkusers"><span class="fa fa-users fa-lg"></span> Check Users</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/stories"><span class="fa fa-history fa-lg"></span> Stories</NavLink>
@@ -65,4 +64,4 @@ const Home = (props) => {
   );
 }
 
-export default Home;
+export default CompanyHome;

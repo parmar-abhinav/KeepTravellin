@@ -7,6 +7,15 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Profile } from './profile';
 import { Auth } from './auth';
 import { Registration } from './registration';
+import { Stories } from './stories';
+import { Destination } from './destination';
+import { Services } from './services';
+import { Facility } from './facility';
+import { UpdateProfile } from './updateprofile';
+import {Story} from './story';
+import {Trip} from './trip';
+import {Check} from './check';
+import {Request} from './request';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
@@ -15,7 +24,16 @@ export const ConfigureStore = () => {
         combineReducers({
             auth: Auth,
             profile: Profile,
-            registration: Registration
+            registration: Registration,
+            stories: Stories,
+            destination: Destination,
+            services: Services,
+            facility: Facility,
+            updateprofile: UpdateProfile,
+            trip: Trip,
+            request: Request,
+            check: Check,
+            story: Story
         }),
         applyMiddleware(thunk, logger)
     );

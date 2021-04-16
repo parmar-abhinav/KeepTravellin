@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input, Alert, Navbar, NavbarBrand, Button, NavLink, Spinner } from 'reactstrap';
+import Home from './HomeComponent';
+// import { Card, CardTitle, CardText, CardGroup, CardSubtitle, CardImg, CardBody } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Alert, Navbar, NavbarBrand,Button, NavLink, Spinner } from 'reactstrap';
 
-class Registration extends Component {
-    constructor(props) {
+class EditProfile extends Component {
+
+    constructor(props){
         super(props);
         this.state = {
-            username: '',
-            password: '',
             firstname: '',
             lastname: '',
             email: '',
@@ -19,43 +20,43 @@ class Registration extends Component {
         this.handleSignUp = this.handleSignUp.bind(this);
     }
 
-
     handlechange(event) {
-            this.setState({
-                [event.target.name]: event.target.value
-            }, () => console.log(this.state))
+        this.setState({
+            [event.target.name]: event.target.value
+        })
     }
 
-    handleSignUp(e) {
-        if (this.state.username === '' || this.state.password === '' || this.state.firstname === '' || this.state.lastname === '' || this.state.email === '') {
+    handleSignUp() {
+        if (this.state.firstname === '' || this.state.lastname === '' || this.state.email === '') {
             this.setState({
                 isAlert: true,
                 alertType: 'danger',
-                alertMess: 'Complete all the fields before registration'
+                alertMess: 'Complete all the fields before updating profile'
             })
         }
         else {
-            this.props.registerUser(this.state)
-
+            console.log({...this.state, username: this.props.profile.profile.user.username})
+            this.props.updateProfile({...this.state, username: this.props.profile.profile.user.username})
         }
     }
 
     componentDidMount() {
-        if (this.props.registration.errMess) {
+        if (this.props.profile.errMess) {
             this.setState({
                 isAlert: true,
                 alertType: 'danger',
-                alertMess: this.props.registration.errMess
+                alertMess: this.props.profile.errMess
             })
         }
-        if (this.props.registration.registration.success) {
+        if (this.props.updateprofile.registration.success) {
             this.setState({
                 isAlert: true,
                 alertType: 'success',
-                alertMess: this.props.registration.registration.status
+                alertMess: this.props.updateprofile.registration.status
             })
         }
     }
+
 
     render() {
 
@@ -75,41 +76,32 @@ class Registration extends Component {
             })
         }
 
-        if (this.props.registration.isLoading) {
+        if (this.props.profile.isLoading) {
             return (
                 <div>
-                    <Navbar color="light" light>
-                        <NavbarBrand href="/">KeepTravellin'</NavbarBrand>
-                    </Navbar>
+                    <Home logoutUser={this.props.logoutUser} />
                     <Spinner className="offset-5 mt-5 mb-1" style={{ width: '3rem', height: '3rem' }} type="grow" color="primary" />
                 </div>
             );
         }
-        else {
+        else if (this.props.profile.errMess) {
             return (
                 <div>
-                    <Navbar color="light" light>
-                        <NavbarBrand href="/">KeepTravellin'</NavbarBrand>
-                    </Navbar>
+                    <Home logoutUser={this.props.logoutUser} />
+                    <h3>Unable to Edit Profile</h3>
+                    <h4>{this.props.profile.errMess}</h4>
+                </div>
+            );
+        }
+        else if(this.props.profile.profile.success) {
+            return (
+                <div>
+                    <Home logoutUser={this.props.logoutUser} />
+                    <Label className="d-flex justify-content-center" style={{ color: 'green', fontSize: '20px' }}>Edit Profile</Label>
                     <Alert color={this.state.alertType} isOpen={this.state.isAlert} toggle={onDismiss}>
                         {this.state.alertMess}
                     </Alert>
                     <Form className="ml-5 mt-3">
-                        <FormGroup>
-                            <Label for="Usertype">User Type</Label>
-                            <Input type="select" className="col-6" name="usertype" id="usertype" value={this.state.usertype} name="usertype" onChange={this.handlechange}>
-                                <option value="Tourist">Tourist</option>
-                                <option value="Company">Company</option>
-                            </Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="Username">Username</Label>
-                            <Input type="text" name="username" id="Username" className="col-6" placeholder="Username" value={this.state.username} onChange={this.handlechange} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="Password">Password</Label>
-                            <Input type="password" name="password" id="Password" className="col-6" placeholder="Password" value={this.state.password} onChange={this.handlechange} />
-                        </FormGroup>
                         <FormGroup>
                             <Label for="Firstname">Firstname</Label>
                             <Input type="text" name="firstname" id="Firstname" className="col-6" placeholder="Firstname" value={this.state.firstname} onChange={this.handlechange} />
@@ -123,14 +115,22 @@ class Registration extends Component {
                             <Input type="email" name="email" id="Email" className="col-6" placeholder="Email" value={this.state.email} onChange={this.handlechange} />
                         </FormGroup>
                         <FormGroup>
-                            <Button outline color="success" size="lg" onClick={this.handleSignUp} className="mr-2">Signup <i className="fa fa-user-plus" /></Button>
-                            <Button outline color="primary" size="lg" href="http://localhost:3000/"> Login <i className="fa fa-sign-in" /></Button>
+                            <Button outline color="success" size="lg" onClick={this.handleSignUp} className="mr-2">Update Profile <i className="fa fa-edit" /></Button>
                         </FormGroup>
                     </Form>
                 </div>
-            )
+            );
         }
+        else {
+            return (
+                <div>
+                    <Home logoutUser={this.props.logoutUser} />
+                    <Spinner className="offset-5 mt-5 mb-1" style={{ width: '3rem', height: '3rem' }} type="grow" color="primary" />
+                </div>
+            );
+        }
+
     }
 }
 
-export default Registration;
+export default EditProfile;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, FormFeedback, FormText, Navbar, NavbarBrand, Button, NavLink } from 'reactstrap';
-import GoogleLogin from 'react-google-login';
+
 import { Alert, Spinner } from 'reactstrap';
 
 
@@ -8,21 +8,20 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             username: '',
             password: '',
             isAlert: false,
             alertMess: ''
         }
-        this.responseGoogle = this.responseGoogle.bind(this);
         this.handlechange = this.handlechange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
     }
 
-    
-    componentDidMount(){
-        if(this.props.auth.errMess){
-            
+
+    componentDidMount() {
+        if (this.props.auth.errMess) {
+
             this.setState({
                 isAlert: true,
                 alertMess: this.props.auth.errMess
@@ -31,28 +30,23 @@ class Login extends Component {
     }
 
 
-    handlechange(event){
+    handlechange(event) {
         this.setState({
-            [event.target.name] : event.target.value
+            [event.target.name]: event.target.value
         })
     }
 
-    handleLogin(){
-        if(this.state.username === '' || this.state.password === ''){
+    handleLogin() {
+        if (this.state.username === '' || this.state.password === '') {
             this.setState({
                 isAlert: true,
                 alertMess: 'Complete all the fields before login!'
             })
         }
-        else{
+        else {
             this.props.loginUser(this.state);
         }
-        
-    }
 
-    responseGoogle(response) {
-        console.log(response);
-        console.log(response.profileObj);
     }
 
     render() {
@@ -72,7 +66,7 @@ class Login extends Component {
             })
         }
 
-        if(this.props.auth.isLoading){
+        if (this.props.auth.isLoading) {
             return (
                 <div>
                     <Navbar color="light" light>
@@ -88,35 +82,26 @@ class Login extends Component {
                     <NavbarBrand href="/">KeepTravellin'</NavbarBrand>
                 </Navbar>
                 <Alert color="danger" isOpen={this.state.isAlert} toggle={onDismiss}>
-                        {this.state.alertMess}
+                    {this.state.alertMess}
                 </Alert>
                 <div className="row mt-5">
-                <div className="col-5"></div>
-                <Form>
-                    <FormGroup>
-                        <Label for="Username">Username</Label>
-                        <Input type="text" name="username" id="Username" className="col" placeholder="Username" value={this.state.username} onChange={this.handlechange}/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="Password">Email</Label>
-                        <Input type="password" name="password" id="Password" className="col" placeholder="Password" value={this.state.password} onChange={this.handlechange}/>
-                    </FormGroup>
-                    <FormGroup>
-                    <Button outline color="success" size="lg" onClick={this.handleLogin}>Login <i className="fa fa-sign-in" /></Button>
-                    </FormGroup>
-                    <FormGroup>
-                            <GoogleLogin
-                                clientId="469482755162-qnism18vg4hgmlmvm1rp435bdr052rf3.apps.googleusercontent.com"
-                                buttonText="Login with Google"
-                                onSuccess={this.responseGoogle}
-                                onFailure={this.responseGoogle}
-                                cookiePolicy={'single_host_origin'}
-                            />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Don't have an account <a href="/signup">Create One</a></Label>
-                    </FormGroup>
-                </Form>
+                    <div className="col-5"></div>
+                    <Form>
+                        <FormGroup>
+                            <Label for="Username">Username</Label>
+                            <Input type="text" name="username" id="Username" className="col" placeholder="Username" value={this.state.username} onChange={this.handlechange} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="Password">Email</Label>
+                            <Input type="password" name="password" id="Password" className="col" placeholder="Password" value={this.state.password} onChange={this.handlechange} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Button outline color="success" size="lg" onClick={this.handleLogin}>Login <i className="fa fa-sign-in" /></Button>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Don't have an account <a href="/signup">Create One</a></Label>
+                        </FormGroup>
+                    </Form>
                 </div>
             </div>
         );

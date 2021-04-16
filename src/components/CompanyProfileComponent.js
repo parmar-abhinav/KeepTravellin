@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Home from './HomeComponent';
+import CompanyHome from './CompanyHomeComponent';
 import download from '../images/download.jpg';
 import { Card, CardTitle, CardText, CardGroup, CardSubtitle, Spinner, Label, CardImg, CardBody } from 'reactstrap';
 
-class Profile extends Component {
+class CProfile extends Component {
 
     constructor(props){
         super(props);
@@ -13,7 +13,7 @@ class Profile extends Component {
         if (this.props.profile.isLoading) {
             return (
                 <div>
-                    <Home logoutUser={this.props.logoutUser} />
+                    <CompanyHome logoutUser={this.props.logoutUser} />
                     <Spinner className="offset-5 mt-5 mb-1" style={{ width: '3rem', height: '3rem' }} type="grow" color="primary" />
                 </div>
             );
@@ -21,7 +21,7 @@ class Profile extends Component {
         else if (this.props.profile.errMess) {
             return (
                 <div>
-                    <Home logoutUser={this.props.logoutUser} />
+                    <CompanyHome logoutUser={this.props.logoutUser} />
                     <h3>Unable to load Profile</h3>
                     <h4>{this.props.profile.errMess}</h4>
                 </div>
@@ -30,7 +30,7 @@ class Profile extends Component {
         else if(this.props.profile.profile.success) {
             return (
                 <div>
-                    <Home logoutUser={this.props.logoutUser} />
+                    <CompanyHome logoutUser={this.props.logoutUser} />
                     <Label className="d-flex justify-content-center" style={{ color: 'green', fontSize: '20px' }}>Profile</Label>
                     <div className="container">
                         <Card className="container w-75 p-3" >
@@ -67,7 +67,7 @@ class Profile extends Component {
         else {
             return (
                 <div>
-                    <Home logoutUser={this.props.logoutUser} />
+                    <CompanyHome logoutUser={this.props.logoutUser} />
                     <Spinner className="offset-5 mt-5 mb-1" style={{ width: '3rem', height: '3rem' }} type="grow" color="primary" />
                 </div>
             );
@@ -76,4 +76,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+export default CProfile;
