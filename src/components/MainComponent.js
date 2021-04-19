@@ -15,10 +15,11 @@ import CEditProfile from './CompanyEditProfile';
 import AddStory from './AddStoryComponent';
 import CStory from './CompanyStories';
 import CompanyCheck from './CompanyCheckUser';
+import WishList from './WishlistComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Spinner, Navbar, NavbarBrand } from 'reactstrap';
-import { fetchProfile, loginUser, logoutUser, registerUser, fetchStories, fetchDestination, addServices, fetchFacilities, addStory,updateProfile, deleteUser, fetchTrip, addRequests, fetchUser } from '../redux/ActionCreators';
+import { fetchProfile, loginUser, logoutUser, registerUser, fetchStories, joinWish, removeWish,fetchDestination, addServices, fetchWish,deleteService,fetchFacilities, addStory,updateProfile, deleteUser, fetchTrip, addRequests, fetchUser } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -33,7 +34,9 @@ const mapStateToProps = state => {
         trip: state.trip,
         request: state.request,
         check: state.check,
-        story: state.story
+        story: state.story,
+        deleteService: state.deleteService,
+        wish: state.wish
     }
 }
 
@@ -51,7 +54,11 @@ const mapDispatchToProps = (dispatch) => ({
     addRequests: (det) => dispatch(addRequests(det)),
     fetchUser: () => dispatch(fetchUser()),
     deleteUser: (id) => dispatch(deleteUser(id)),
-    addStory: (det) => dispatch(addStory(det))
+    addStory: (det) => dispatch(addStory(det)),
+    deleteService: (id) => dispatch(deleteService(id)),
+    fetchWish: () => dispatch(fetchWish()),
+    joinWish: (details) => dispatch(joinWish(details)),
+    removeWish: (details) => dispatch(removeWish(details))
 });
 
 class Main extends Component {
@@ -66,6 +73,7 @@ class Main extends Component {
         this.props.fetchFacilities();
         this.props.fetchTrip();
         this.props.fetchUser();
+        this.props.fetchWish();
     }
 
     render() {
@@ -87,9 +95,10 @@ class Main extends Component {
                     <PrivateRoute exact path="/" component={() => <Home logoutUser={this.props.logoutUser} />} />
                     <PrivateRoute exact path="/addstory" component={() => <AddStory profile={this.props.profile} story={this.props.story} addStory={this.props.addStory} logoutUser={this.props.logoutUser} />} />
                     <PrivateRoute exact path="/stories" component={() => <Story stories={this.props.stories}  logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/wishlist" component={() => <WishList removeWish={this.props.removeWish} wish={this.props.wish}  logoutUser={this.props.logoutUser} profile={this.props.profile} />} />
                     <PrivateRoute exact path="/profile" component={() => <Profile profile={this.props.profile} logoutUser={this.props.logoutUser}/>} />
                     <PrivateRoute exact path="/destination" component={() => <Destination destination={this.props.destination} logoutUser={this.props.logoutUser}/>} />
-                    <PrivateRoute exact path="/maketrip" component={() => <MakeTrip logoutUser={this.props.logoutUser} trip={this.props.trip} profile={this.props.profile} addRequests={this.props.addRequests} request = {this.props.request} />} />
+                    <PrivateRoute exact path="/maketrip" component={() => <MakeTrip wish = {this.props.wish} joinWish={this.props.joinWish} removeWish={this.props.removeWish} logoutUser={this.props.logoutUser} trip={this.props.trip} profile={this.props.profile} addRequests={this.props.addRequests} request = {this.props.request} />} />
                     <PrivateRoute exact path="/editprofile" component={() => <EditProfile profile={this.props.profile} logoutUser={this.props.logoutUser} updateProfile={this.props.updateProfile} updateprofile={this.props.updateprofile}/>} />
                     <Redirect to="/" />
                 </Switch>
@@ -102,7 +111,7 @@ class Main extends Component {
                     <PrivateRoute exact path="/stories" component={() => <CStory stories={this.props.stories}  logoutUser={this.props.logoutUser}/>} />
                     <PrivateRoute exact path="/profile" component={() => <CProfile profile={this.props.profile} logoutUser={this.props.logoutUser}/>} />
                     <PrivateRoute exact path="/addservice" component={() => <AddService auth = {this.props.auth} addServices={this.props.addServices} services={this.props.services} logoutUser={this.props.logoutUser}/>} /> 
-                    <PrivateRoute exact path="/viewservice" component={() => <Facility auth = {this.props.auth} facility={this.props.facility} logoutUser={this.props.logoutUser}/>} /> 
+                    <PrivateRoute exact path="/viewservice" component={() => <Facility deleteService={this.props.deleteService} auth = {this.props.auth} facility={this.props.facility} logoutUser={this.props.logoutUser}/>} /> 
                     <PrivateRoute exact path="/editprofile" component={() => <CEditProfile profile={this.props.profile} logoutUser={this.props.logoutUser} updateProfile={this.props.updateProfile} updateprofile={this.props.updateprofile}/>} />
                     <PrivateRoute exact path="/checkusers" component={() => <CompanyCheck deleteUser={this.props.deleteUser} check={this.props.check} auth={this.props.auth} logoutUser={this.props.logoutUser} />} />
                     <Redirect to="/" />

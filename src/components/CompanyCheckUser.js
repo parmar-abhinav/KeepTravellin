@@ -46,6 +46,10 @@ class Check extends Component {
                                     <CardSubtitle className="col-3">{user.lastname}</CardSubtitle>
                                 </div>
                                 <div className="row">
+                                    <CardSubtitle className="col-3">Mobile Number</CardSubtitle>
+                                    <CardSubtitle className="col-3">{user.mobnumber}</CardSubtitle>
+                                </div>
+                                <div className="row">
                                     <CardSubtitle className="col-3">Email</CardSubtitle>
                                     <CardSubtitle className="col-3">{user.email}</CardSubtitle>
                                 </div>

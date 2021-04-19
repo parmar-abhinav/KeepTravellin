@@ -25,7 +25,9 @@ class AddService extends Component {
             username: this.props.auth.user.username,
             isAlert: false,
             alertMess: '',
-            alertType: ''
+            alertType: '',
+            date: 'select',
+            time: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleHotelReset = this.handleHotelReset.bind(this);
@@ -97,7 +99,9 @@ class AddService extends Component {
             flightname: '',
             mobnumber: '',
             source: '',
-            destination: ''
+            destination: '',
+            date: 'select',
+            time: ''
         })
     }
 
@@ -217,10 +221,6 @@ class AddService extends Component {
                             <Label for="pin" >Pin Code</Label>
                             <Input type="number" name="pincode" id="pincode" placeholder="Pin Code" value={this.state.pincode} onChange={this.handleChange} />
                         </FormGroup>
-                        <FormGroup >
-                            <Label for="image" >Upload Image</Label>
-                            <Input type="file" name="image" id="image" value={this.state.image} onChange={this.handleChange} />
-                        </FormGroup>
                         <Button outline color="success" size="lg" onClick={this.handleServices}>Add Hotel <i className="fa fa-plus" /></Button>
                         <Button outline color="secondary" size="lg" onClick={this.handleHotelReset} className="m-2">Reset <i className="fa fa-ban" /></Button>
                     </Form>
@@ -306,6 +306,23 @@ class AddService extends Component {
                         <FormGroup>
                             <Label for="destination" >Destination</Label>
                             <Input type="text" name="destination" id="destination" placeholder="Destination" value={this.state.destination} onChange={this.handleChange} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="date" >Day</Label>
+                            <Input type="select" name="date" id="date" value={this.state.date} onChange={this.handleChange}>
+                                <option value="select">Select</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="time" >Time</Label>
+                            <Input type="time" name="time" id="time" placeholder="Time" value={this.state.time} onChange={this.handleChange} />
                         </FormGroup>
                         <Button outline color="success" size="lg" onClick={this.handleServices}>Add Flight <i className="fa fa-plus" /></Button>
                         <Button outline color="secondary" size="lg" onClick={this.handleFlightReset} className="m-2">Reset <i className="fa fa-ban" /></Button>

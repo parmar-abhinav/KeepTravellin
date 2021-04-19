@@ -15,6 +15,7 @@ import { UpdateProfile } from './updateprofile';
 import {Story} from './story';
 import {Trip} from './trip';
 import {Check} from './check';
+import {Wish} from './wish';
 import {Request} from './request';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
@@ -33,7 +34,8 @@ export const ConfigureStore = () => {
             trip: Trip,
             request: Request,
             check: Check,
-            story: Story
+            story: Story,
+            wish: Wish
         }),
         applyMiddleware(thunk, logger)
     );

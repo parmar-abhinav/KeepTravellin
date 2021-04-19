@@ -34,6 +34,9 @@ const Home = (props) => {
               <NavLink href="/maketrip"><span class="fa fa-plane fa-lg"></span> MakeTrip</NavLink>
             </NavItem>
             <NavItem>
+              <NavLink href="/wishlist"><span class="fa fa-star fa-lg"></span> WishList</NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink href="/addstory"><span class="fa fa-plus fa-lg"></span> AddStory</NavLink>
             </NavItem>
             <NavItem>

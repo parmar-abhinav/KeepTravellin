@@ -13,7 +13,8 @@ class Registration extends Component {
             alertType: '',
             alertMess: '',
             isAlert: false,
-            usertype: 'Tourist'
+            usertype: 'Tourist',
+            mobnumber: ''
         }
         this.handlechange = this.handlechange.bind(this);
         this.handleSignUp = this.handleSignUp.bind(this);
@@ -27,7 +28,7 @@ class Registration extends Component {
     }
 
     handleSignUp(e) {
-        if (this.state.username === '' || this.state.password === '' || this.state.firstname === '' || this.state.lastname === '' || this.state.email === '') {
+        if (this.state.username === '' || this.state.password === '' || this.state.firstname === '' || this.state.lastname === '' || this.state.email === '' || this.state.mobnumber === '') {
             this.setState({
                 isAlert: true,
                 alertType: 'danger',
@@ -117,6 +118,10 @@ class Registration extends Component {
                         <FormGroup>
                             <Label for="Lastname">Lastname</Label>
                             <Input type="text" name="lastname" id="Lastname" className="col-6" placeholder="Lastname" value={this.state.lastname} onChange={this.handlechange} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="Mobnumber">Mobile Number</Label>
+                            <Input type="number" name="mobnumber" id="Mobnumber" className="col-6" placeholder="Mobile Number" value={this.state.mobnumber} onChange={this.handlechange} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="Email">Email</Label>

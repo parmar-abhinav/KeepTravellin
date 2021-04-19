@@ -281,7 +281,6 @@ export const addServices = (details) => (dispatch) => {
 }
 
 
-
 export const servicesLoading = () => ({
     type: ActionTypes.SERVICES_LOADING
 });
@@ -322,6 +321,29 @@ export const fetchFacilities = () => (dispatch) => {
         .then(stories => dispatch(addFacility(stories)))
         .catch(error => dispatch(facilityFailed(error.message)));
 }
+
+export const deleteService = (id) => (dispatch) => {
+    dispatch(facilityLoading());
+
+    return fetch(baseUrl + `services/${id}`)
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then(response => dispatch(fetchFacilities()))
+        .catch(error => dispatch(facilityFailed(error.message)));
+}
+
 
 export const facilityLoading = () => ({
     type: ActionTypes.FACILITY_LOADING
@@ -576,6 +598,94 @@ export const addStry = (response) => ({
     type: ActionTypes.ADD_STORY,
     payload: response
 });
+
+
+
+export const fetchWish = () => (dispatch) => {
+    dispatch(wishLoading());
+
+    return fetch(baseUrl + 'wish')
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then(response => response.json())
+        .then(stories => dispatch(addWish(stories)))
+        .catch(error => dispatch(wishFailed(error.message)));
+}
+
+export const joinWish = (details) => (dispatch) => {
+
+    return fetch(baseUrl + 'wish', {
+        method: "POST",
+        body: JSON.stringify(details),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then(response => response.json())
+        .catch(error => console.log(error));
+}
+
+
+export const removeWish = (details) => (dispatch) => {
+
+    return fetch(baseUrl + `wish/${details._id}`)
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then(response => response.json())
+        .then(res => dispatch(fetchWish()))
+        .catch(error => console.log(error));
+}
+
+export const wishLoading = () => ({
+    type: ActionTypes.WISH_LOADING
+});
+
+export const wishFailed = (errmess) => ({
+    type: ActionTypes.WISH_FAILED,
+    payload: errmess
+});
+
+export const addWish = (stories) => ({
+    type: ActionTypes.ADD_WISH,
+    payload: stories
+});
+
 // export const postFavorite = (dishId) => (dispatch) => {
 
 //     const bearer = 'Bearer ' + localStorage.getItem('token');

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Home from './HomeComponent';
-import { Col, Row, Button, Form, FormGroup, Label, Input, Collapse, Card, CardTitle, Alert, CardText, Spinner, CardGroup, CardSubtitle, CardImg, CardBody, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
+import { Col, Row, Button, Form, FormGroup, Label, Input, Collapse, Card, CardTitle, Alert, CardText, Badge, Spinner, CardGroup, CardSubtitle, CardImg, CardBody, Modal, ModalHeader, ModalBody, ModalFooter, CardHeader } from 'reactstrap';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import Favorite from '@material-ui/icons/Favorite';
 class MakeTrip extends Component {
 
     constructor(props) {
@@ -18,6 +21,11 @@ class MakeTrip extends Component {
             alertType: '',
             alertMess: '',
             isAlert: false,
+            flight: false,
+            bus: false,
+            taxi: false,
+            hotel: false,
+            ristorante: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
@@ -27,6 +35,11 @@ class MakeTrip extends Component {
         this.handleRistorante = this.handleRistorante.bind(this);
         this.handleTaxi = this.handleTaxi.bind(this);
         this.handleRequest = this.handleRequest.bind(this);
+        this.flightLike = this.flightLike.bind(this);
+        this.busLike = this.busLike.bind(this);
+        this.taxiLike = this.taxiLike.bind(this);
+        this.hotelLike = this.hotelLike.bind(this);
+        this.ristoranteLike = this.ristoranteLike.bind(this);
     }
 
     componentDidMount() {
@@ -53,12 +66,14 @@ class MakeTrip extends Component {
     }
 
     handleSearch() {
-        this.setState({
-            isOpen: true
-        })
+        if (this.state.source != '' && this.state.destination != '') {
+            this.setState({
+                isOpen: true
+            })
+        }
     }
 
-    handleFlight() {
+    handleFlight(details) {
         this.setState({
             flightOpen: !this.state.flightOpen
         })
@@ -92,9 +107,74 @@ class MakeTrip extends Component {
         this.props.addRequests(details);
     }
 
+    flightLike(details) {
+        this.setState({
+            flight: !this.state.flight
+        }, () => {
+            if(this.state.flight) {
+                this.props.joinWish({...details, touristusername: this.props.profile.profile.user.username})
+            }
+            else {
+                this.props.removeWish(details)
+            }
+        })
+    }
+
+    busLike(details) {
+        this.setState({
+            bus: !this.state.bus
+        }, () => {
+            if(this.state.bus) {
+                this.props.joinWish({...details, touristusername: this.props.profile.profile.user.username})
+            }
+            else {
+                this.props.removeWish(details)
+            }
+        })
+    }
+
+    taxiLike(details) {
+        this.setState({
+            taxi: !this.state.taxi
+        }, () => {
+            if(this.state.taxi) {
+                this.props.joinWish({...details, touristusername: this.props.profile.profile.user.username})
+            }
+            else {
+                this.props.removeWish(details)
+            }
+        })
+    }
+
+    hotelLike(details) {
+        this.setState({
+            hotel: !this.state.hotel
+        }, () => {
+            if(this.state.hotel) {
+                this.props.joinWish({...details, touristusername: this.props.profile.profile.user.username})
+            }
+            else {
+                this.props.removeWish(details)
+            }
+        })
+    }
+
+    ristoranteLike(details) {
+        this.setState({
+            ristorante: !this.state.ristorante
+        }, () => {
+            if(this.state.ristorante) {
+                this.props.joinWish({...details, touristusername: this.props.profile.profile.user.username})
+            }
+            else {
+                this.props.removeWish(details)
+            }
+        })
+    }
+
     render() {
 
-       
+
 
         if (this.props.trip.isLoading) {
             return (
@@ -117,10 +197,21 @@ class MakeTrip extends Component {
             const renderFlight = this.props.trip.trip.filter(flight => flight.service === 'Flight' && flight.source == this.state.source && flight.destination == this.state.destination).map(flight => {
                 return (
                     <Card className="m-3 p-3">
-                        
+                        <div className="row">
+                            <CardTitle className="col-6"><Badge color="info" pill>{flight.date}</Badge></CardTitle>
+                            <div className="d-flex justify-content-end col-6" onClick={() =>{this.flightLike(flight)}}>
+                                <FormControlLabel
+                                    control={<Checkbox  icon={<FavoriteBorder/>} checkedIcon={<Favorite />} name="flight" />}
+                                />
+                            </div>
+                        </div>
                         <div className="row">
                             <CardTitle className="col-4">Flight Name</CardTitle>
                             <CardTitle className="col-6">{flight.flightname}</CardTitle>
+                        </div>
+                        <div className="row">
+                            <CardTitle className="col-4">Departure Time</CardTitle>
+                            <CardTitle className="col-6">{flight.time}</CardTitle>
                         </div>
                         <div className="row">
                             <CardSubtitle className="col-4">Contact Name</CardSubtitle>
@@ -137,7 +228,8 @@ class MakeTrip extends Component {
                                 touristusername: this.props.profile.profile.user.username,
                                 firstname: this.props.profile.profile.user.firstname,
                                 lastname: this.props.profile.profile.user.lastname,
-                                email: this.props.profile.profile.user.email
+                                email: this.props.profile.profile.user.email,
+                                mobnumber: this.props.profile.profile.user.mobnumber
                             })
                         }}>Request Call</Button>{' '}
                     </Card>
@@ -150,6 +242,11 @@ class MakeTrip extends Component {
                         <div className="row">
                             <CardTitle className="col-4">Bus Name</CardTitle>
                             <CardTitle className="col-6">{bus.busname}</CardTitle>
+                            <div className="d-flex justify-content-end col-2" onClick={() => {this.busLike(bus)}}>
+                                <FormControlLabel
+                                    control={<Checkbox  icon={<FavoriteBorder/>} checkedIcon={<Favorite />} name="flight" />}
+                                />
+                            </div>
                         </div>
                         <div className="row">
                             <CardSubtitle className="col-4">Contact Name</CardSubtitle>
@@ -166,7 +263,8 @@ class MakeTrip extends Component {
                                 touristusername: this.props.profile.profile.user.username,
                                 firstname: this.props.profile.profile.user.firstname,
                                 lastname: this.props.profile.profile.user.lastname,
-                                email: this.props.profile.profile.user.email
+                                email: this.props.profile.profile.user.email,
+                                mobnumber: this.props.profile.profile.user.mobnumber
                             })
                         }}>Request Call</Button>{' '}
                     </Card>
@@ -177,8 +275,17 @@ class MakeTrip extends Component {
                 return (
                     <Card className="m-3 p-3">
                         <div className="row">
+                            <div className="col-6"></div>
+                            <div className="d-flex justify-content-end col-6" onClick={() => {this.taxiLike(taxi)}}>
+                                <FormControlLabel
+                                    control={<Checkbox  icon={<FavoriteBorder/>} checkedIcon={<Favorite />} name="flight" />}
+                                />
+                            </div>
+                        </div>
+                        <div className="row">
                             <CardTitle className="col-4">Contact Name</CardTitle>
                             <CardTitle className="col-6">{taxi.name}</CardTitle>
+                            
                         </div>
                         <div className="row">
                             <CardSubtitle className="col-4">Mobile No.</CardSubtitle>
@@ -203,7 +310,8 @@ class MakeTrip extends Component {
                                 touristusername: this.props.profile.profile.user.username,
                                 firstname: this.props.profile.profile.user.firstname,
                                 lastname: this.props.profile.profile.user.lastname,
-                                email: this.props.profile.profile.user.email
+                                email: this.props.profile.profile.user.email,
+                                mobnumber: this.props.profile.profile.user.mobnumber
                             })
                         }}>Request Call</Button>{' '}
                     </Card>
@@ -213,6 +321,14 @@ class MakeTrip extends Component {
             const renderHotel = this.props.trip.trip.filter(flight => flight.service === 'Hotel' && flight.city == this.state.destination).map(hotel => {
                 return (
                     <Card className="m-3 p-3">
+                        <div className="row">
+                        <div className="col-6"></div>
+                            <div className="d-flex justify-content-end col-6" onClick={() => {this.hotelLike(hotel)}}>
+                                <FormControlLabel
+                                    control={<Checkbox  icon={<FavoriteBorder/>} checkedIcon={<Favorite />} name="flight" />}
+                                />
+                            </div>
+                        </div>
                         <div className="row">
                             <CardTitle className="col-4">Hotel Name</CardTitle>
                             <CardTitle className="col-6">{hotel.hotelname}</CardTitle>
@@ -244,7 +360,8 @@ class MakeTrip extends Component {
                                 touristusername: this.props.profile.profile.user.username,
                                 firstname: this.props.profile.profile.user.firstname,
                                 lastname: this.props.profile.profile.user.lastname,
-                                email: this.props.profile.profile.user.email
+                                email: this.props.profile.profile.user.email,
+                                mobnumber: this.props.profile.profile.user.mobnumber
                             })
                         }}>Request Call</Button>{' '}
                     </Card>
@@ -254,6 +371,14 @@ class MakeTrip extends Component {
             const renderRistorante = this.props.trip.trip.filter(flight => flight.service === 'Ristorante' && flight.city == this.state.destination).map(ristorante => {
                 return (
                     <Card className="m-3 p-3">
+                        <div className="row">
+                        <div className="col-6"></div>
+                            <div className="d-flex justify-content-end col-6" onClick={() => {this.ristoranteLike(ristorante)}}>
+                                <FormControlLabel
+                                    control={<Checkbox  icon={<FavoriteBorder/>} checkedIcon={<Favorite />} name="flight" />}
+                                />
+                            </div>
+                        </div>
                         <div className="row">
                             <CardTitle className="col-4">Ristorante Name</CardTitle>
                             <CardTitle className="col-6">{ristorante.ristorantename}</CardTitle>
@@ -285,7 +410,8 @@ class MakeTrip extends Component {
                                 touristusername: this.props.profile.profile.user.username,
                                 firstname: this.props.profile.profile.user.firstname,
                                 lastname: this.props.profile.profile.user.lastname,
-                                email: this.props.profile.profile.user.email
+                                email: this.props.profile.profile.user.email,
+                                mobnumber: this.props.profile.profile.user.mobnumber
                             })
                         }}>Request Call</Button>{' '}
                     </Card>
@@ -305,7 +431,7 @@ class MakeTrip extends Component {
                     })
                 }, 3000);
             }
-    
+
             const onDismiss = () => {
                 this.setState({
                     isAlert: false,
@@ -313,7 +439,7 @@ class MakeTrip extends Component {
                     alertMess: ''
                 })
             }
-            
+
             return (
                 <div>
                     <Home logoutUser={this.props.logoutUser} />

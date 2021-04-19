@@ -54,3 +54,7 @@ export const USER_FAILED = "USER_FAILED";
 export const ADD_STORY = "ADD_STORY";
 export const STORY_LOADING = "STORY_LOADING";
 export const STORY_FAILED = "STORY_FAILED"
+
+export const ADD_WISH = "ADD_WISH";
+export const WISH_LOADING = "WISH_LOADING";
+export const WISH_FAILED = "WISH_FAILED";
