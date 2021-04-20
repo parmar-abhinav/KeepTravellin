@@ -37,7 +37,8 @@ export const ConfigureStore = () => {
             story: Story,
             wish: Wish
         }),
-        applyMiddleware(thunk, logger)
+        // applyMiddleware(thunk, logger)
+        applyMiddleware(thunk)
     );
 
     return store;
