@@ -22,7 +22,7 @@ class WishList extends Component {
                 </div>
             );
         }
-        else if(this.props.wish.wish.success){
+        else if(this.props.wish.wish.success && this.props.profile.profile.success){
             const RenderWishes = this.props.wish.wish.story.filter((wish) => wish.touristusername == this.props.profile.profile.user.username).map((wish) => {
                 if(wish.service === 'Flight') {
                     return (
@@ -33,7 +33,7 @@ class WishList extends Component {
                             style={{textDecoration: 'none'}}
                             className="fa fa-trash fa-lg d-flex justify-content-end"
                              onClick={() => {
-                                this.props.removeWish(wish);
+                                this.props.removeWishes(wish);
                             }}></a>
                         </CardHeader>
                         <CardBody>
@@ -74,7 +74,7 @@ class WishList extends Component {
                             style={{textDecoration: 'none'}}
                             className="fa fa-trash fa-lg d-flex justify-content-end"
                              onClick={() => {
-                                this.props.removeWish(wish);
+                                this.props.removeWishes(wish);
                             }}></a>
                         </CardHeader>
                         <CardBody>
@@ -107,7 +107,7 @@ class WishList extends Component {
                             style={{textDecoration: 'none'}}
                             className="fa fa-trash fa-lg d-flex justify-content-end"
                              onClick={() => {
-                                this.props.removeWish(wish);
+                                this.props.removeWishes(wish);
                             }}></a>
                         </CardHeader>
                         <CardBody>
@@ -136,7 +136,7 @@ class WishList extends Component {
                             style={{textDecoration: 'none'}}
                             className="fa fa-trash fa-lg d-flex justify-content-end"
                              onClick={() => {
-                                this.props.removeWish(wish);
+                                this.props.removeWishes(wish);
                             }}></a>
                         </CardHeader>
                         <CardBody>
@@ -165,7 +165,7 @@ class WishList extends Component {
                             style={{textDecoration: 'none'}}
                             className="fa fa-trash fa-lg d-flex justify-content-end"
                              onClick={() => {
-                                this.props.removeWish(wish);
+                                this.props.removeWishes(wish);
                             }}></a>
                         </CardHeader>
                         <CardBody>

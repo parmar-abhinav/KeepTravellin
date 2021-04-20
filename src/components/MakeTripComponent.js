@@ -201,7 +201,7 @@ class MakeTrip extends Component {
                             <CardTitle className="col-6"><Badge color="info" pill>{flight.date}</Badge></CardTitle>
                             <div className="d-flex justify-content-end col-6" onClick={() =>{this.flightLike(flight)}}>
                                 <FormControlLabel
-                                    control={<Checkbox  icon={<FavoriteBorder/>} checkedIcon={<Favorite />} name="flight" />}
+                                    control={<Checkbox icon={<FavoriteBorder/>} checkedIcon={<Favorite />} name="flight" />}
                                 />
                             </div>
                         </div>

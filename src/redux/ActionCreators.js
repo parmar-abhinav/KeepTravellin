@@ -91,7 +91,18 @@ export const logoutUser = () => (dispatch) => {
 
 export const fetchProfile = (username) => (dispatch) => {
     dispatch(profileLoading());
-    return fetch(baseUrl + `profile/${username}`)
+    // return fetch(baseUrl + `profile/${username}`)
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + `profile/${username}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -130,7 +141,18 @@ export const addProfile = (profile) => ({
 export const fetchStories = () => (dispatch) => {
     dispatch(storiesLoading(true));
 
-    return fetch(baseUrl + 'stories')
+    // return fetch(baseUrl + 'stories')
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'stories', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -169,7 +191,18 @@ export const addStories = (stories) => ({
 export const fetchDestination = () => (dispatch) => {
     dispatch(destinationLoading(true));
 
-    return fetch(baseUrl + 'destination')
+    // return fetch(baseUrl + 'destination')
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'destination', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -255,12 +288,24 @@ export const addServices = (details) => (dispatch) => {
 
     dispatch(servicesLoading());
 
+    // return fetch(baseUrl + 'services', {
+    //     method: "POST",
+    //     body: JSON.stringify(details),
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // })
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
     return fetch(baseUrl + 'services', {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(details),
         headers: {
-            "Content-Type": "application/json"
-        }
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
     })
         .then(response => {
             if (response.ok) {
@@ -302,7 +347,18 @@ export const addService = (response) => ({
 export const fetchFacilities = () => (dispatch) => {
     dispatch(facilityLoading(true));
 
-    return fetch(baseUrl + 'services')
+    // return fetch(baseUrl + 'services')
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'services', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -325,7 +381,18 @@ export const fetchFacilities = () => (dispatch) => {
 export const deleteService = (id) => (dispatch) => {
     dispatch(facilityLoading());
 
-    return fetch(baseUrl + `services/${id}`)
+    // return fetch(baseUrl + `services/${id}`)
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + `services/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -365,12 +432,24 @@ export const updateProfile = (details) => (dispatch) => {
 
     dispatch(updateProfileLoading());
 
+    // return fetch(baseUrl + 'profile', {
+    //     method: "POST",
+    //     body: JSON.stringify(details),
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // })
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
     return fetch(baseUrl + 'profile', {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(details),
         headers: {
-            "Content-Type": "application/json"
-        }
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
     })
         .then(response => {
             if (response.ok) {
@@ -411,7 +490,18 @@ export const addUpdateProfile = (response) => ({
 export const fetchTrip = () => (dispatch) => {
     dispatch(tripLoading());
 
-    return fetch(baseUrl + 'trip')
+    // return fetch(baseUrl + 'trip')
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'trip', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -450,12 +540,24 @@ export const addRequests = (details) => (dispatch) => {
 
     dispatch(requestLoading());
 
+    // return fetch(baseUrl + 'request', {
+    //     method: "POST",
+    //     body: JSON.stringify(details),
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // })
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
     return fetch(baseUrl + 'request', {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(details),
         headers: {
-            "Content-Type": "application/json"
-        }
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
     })
         .then(response => {
             if (response.ok) {
@@ -495,7 +597,18 @@ export const addRequest = (response) => ({
 export const deleteUser = (id) => (dispatch) => {
     dispatch(userLoading());
 
-    return fetch(baseUrl + `checkusers/${id}`)
+    // return fetch(baseUrl + `checkusers/${id}`)
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + `checkusers/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -519,7 +632,18 @@ export const deleteUser = (id) => (dispatch) => {
 export const fetchUser = () => (dispatch) => {
     dispatch(userLoading());
 
-    return fetch(baseUrl + 'checkusers')
+    // return fetch(baseUrl + 'checkusers')
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'checkusers', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -558,12 +682,24 @@ export const addStory = (details) => (dispatch) => {
 
     dispatch(storyLoading());
 
+    // return fetch(baseUrl + 'stories', {
+    //     method: "POST",
+    //     body: JSON.stringify(details),
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // })
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
     return fetch(baseUrl + 'stories', {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(details),
         headers: {
-            "Content-Type": "application/json"
-        }
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
     })
         .then(response => {
             if (response.ok) {
@@ -604,7 +740,18 @@ export const addStry = (response) => ({
 export const fetchWish = () => (dispatch) => {
     dispatch(wishLoading());
 
-    return fetch(baseUrl + 'wish')
+    // return fetch(baseUrl + 'wish')
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'wish', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
@@ -626,12 +773,24 @@ export const fetchWish = () => (dispatch) => {
 
 export const joinWish = (details) => (dispatch) => {
 
+    // return fetch(baseUrl + 'wish', {
+    //     method: "POST",
+    //     body: JSON.stringify(details),
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // })
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
     return fetch(baseUrl + 'wish', {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(details),
         headers: {
-            "Content-Type": "application/json"
-        }
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
     })
         .then(response => {
             if (response.ok) {
@@ -653,7 +812,47 @@ export const joinWish = (details) => (dispatch) => {
 
 export const removeWish = (details) => (dispatch) => {
 
-    return fetch(baseUrl + `wish/${details._id}`)
+    // return fetch(baseUrl + `wish/${details._id}`)
+    
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + `wish/${details._id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        },
+            error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+        .then(response => response.json())
+        .catch(error => console.log(error));
+}
+export const removeWishes = (details) => (dispatch) => {
+
+    // return fetch(baseUrl + `wish/${details._id}`)
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + `wish/${details._id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        credentials: 'same-origin'
+    })
         .then(response => {
             if (response.ok) {
                 return response;
