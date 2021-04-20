@@ -53,7 +53,7 @@ export const loginUser = (creds) => (dispatch) => {
                 // If login was successful, set the token in local storage
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('usertype', response.usertype)
-                localStorage.setItem('creds', JSON.stringify(creds));
+                localStorage.setItem('creds', JSON.stringify({username: creds.username}));
                 // Dispatch the success action
                 // dispatch(fetchProfile(creds.username));
                 dispatch(receiveLogin(response));
