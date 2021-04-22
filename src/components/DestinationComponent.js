@@ -19,7 +19,7 @@ class Destination extends Component {
         this.setState({
             link: destination.Youtube,
             Modal: !this.state.Modal
-        }, () => console.log(this.state))
+        })
     }
 
     handleToggle() {

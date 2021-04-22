@@ -129,7 +129,7 @@ class Registration extends Component {
                         </FormGroup>
                         <FormGroup>
                             <Button outline color="success" size="lg" onClick={this.handleSignUp} className="mr-2">Signup <i className="fa fa-user-plus" /></Button>
-                            <Button outline color="primary" size="lg" href="http://localhost:3000/"> Login <i className="fa fa-sign-in" /></Button>
+                            <Button outline color="primary" size="lg" href="/"> Login <i className="fa fa-sign-in" /></Button>
                         </FormGroup>
                     </Form>
                 </div>

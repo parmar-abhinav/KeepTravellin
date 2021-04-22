@@ -19,7 +19,7 @@ import WishList from './WishlistComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Spinner, Navbar, NavbarBrand } from 'reactstrap';
-import { fetchProfile, loginUser, logoutUser, registerUser, fetchStories, joinWish, removeWish, removeWishes,fetchDestination, addServices, fetchWish,deleteService,fetchFacilities, addStory,updateProfile, deleteUser, fetchTrip, addRequests, fetchUser } from '../redux/ActionCreators';
+import { fetchProfile, loginUser, logoutUser, registerUser, fetchStories, joinWish, removeWish, removeWishes, fetchDestination, addServices, fetchWish, deleteService, fetchFacilities, addStory, updateProfile, deleteUser, fetchTrip, addRequests, fetchUser } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
@@ -66,15 +66,15 @@ class Main extends Component {
 
 
     componentDidMount() {
-        if(this.props.auth.user) {
+        if (this.props.auth.user) {
             this.props.fetchProfile(this.props.auth.user.username);
+            this.props.fetchStories();
+            this.props.fetchDestination();
+            this.props.fetchFacilities();
+            this.props.fetchTrip();
+            this.props.fetchUser();
+            this.props.fetchWish();
         }
-        this.props.fetchStories();
-        this.props.fetchDestination();
-        this.props.fetchFacilities();
-        this.props.fetchTrip();
-        this.props.fetchUser();
-        this.props.fetchWish();
     }
 
     render() {
@@ -90,30 +90,30 @@ class Main extends Component {
             )} />
         );
 
-        if(this.props.auth.usertype === 'Tourist') {
+        if (this.props.auth.usertype === 'Tourist') {
             return (
                 <Switch>
                     <PrivateRoute exact path="/" component={() => <Home logoutUser={this.props.logoutUser} />} />
                     <PrivateRoute exact path="/addstory" component={() => <AddStory profile={this.props.profile} story={this.props.story} addStory={this.props.addStory} logoutUser={this.props.logoutUser} />} />
-                    <PrivateRoute exact path="/stories" component={() => <Story stories={this.props.stories}  logoutUser={this.props.logoutUser} />} />
-                    <PrivateRoute exact path="/wishlist" component={() => <WishList removeWishes={this.props.removeWishes} wish={this.props.wish}  logoutUser={this.props.logoutUser} profile={this.props.profile} />} />
-                    <PrivateRoute exact path="/profile" component={() => <Profile profile={this.props.profile} logoutUser={this.props.logoutUser}/>} />
-                    <PrivateRoute exact path="/destination" component={() => <Destination destination={this.props.destination} logoutUser={this.props.logoutUser}/>} />
-                    <PrivateRoute exact path="/maketrip" component={() => <MakeTrip wish = {this.props.wish} joinWish={this.props.joinWish} removeWish={this.props.removeWish} logoutUser={this.props.logoutUser} trip={this.props.trip} profile={this.props.profile} addRequests={this.props.addRequests} request = {this.props.request} />} />
-                    <PrivateRoute exact path="/editprofile" component={() => <EditProfile profile={this.props.profile} logoutUser={this.props.logoutUser} updateProfile={this.props.updateProfile} updateprofile={this.props.updateprofile}/>} />
+                    <PrivateRoute exact path="/stories" component={() => <Story stories={this.props.stories} logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/wishlist" component={() => <WishList removeWishes={this.props.removeWishes} wish={this.props.wish} logoutUser={this.props.logoutUser} profile={this.props.profile} />} />
+                    <PrivateRoute exact path="/profile" component={() => <Profile profile={this.props.profile} logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/destination" component={() => <Destination destination={this.props.destination} logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/maketrip" component={() => <MakeTrip wish={this.props.wish} joinWish={this.props.joinWish} removeWish={this.props.removeWish} logoutUser={this.props.logoutUser} trip={this.props.trip} profile={this.props.profile} addRequests={this.props.addRequests} request={this.props.request} />} />
+                    <PrivateRoute exact path="/editprofile" component={() => <EditProfile profile={this.props.profile} logoutUser={this.props.logoutUser} updateProfile={this.props.updateProfile} updateprofile={this.props.updateprofile} />} />
                     <Redirect to="/" />
                 </Switch>
             )
         }
-        else if(this.props.auth.usertype === 'Company') {
+        else if (this.props.auth.usertype === 'Company') {
             return (
                 <Switch>
-                    <PrivateRoute exact path="/" component={() => <CompanyHome logoutUser={this.props.logoutUser}  />} />
-                    <PrivateRoute exact path="/stories" component={() => <CStory stories={this.props.stories}  logoutUser={this.props.logoutUser}/>} />
-                    <PrivateRoute exact path="/profile" component={() => <CProfile profile={this.props.profile} logoutUser={this.props.logoutUser}/>} />
-                    <PrivateRoute exact path="/addservice" component={() => <AddService auth = {this.props.auth} addServices={this.props.addServices} services={this.props.services} logoutUser={this.props.logoutUser}/>} /> 
-                    <PrivateRoute exact path="/viewservice" component={() => <Facility deleteService={this.props.deleteService} auth = {this.props.auth} facility={this.props.facility} logoutUser={this.props.logoutUser}/>} /> 
-                    <PrivateRoute exact path="/editprofile" component={() => <CEditProfile profile={this.props.profile} logoutUser={this.props.logoutUser} updateProfile={this.props.updateProfile} updateprofile={this.props.updateprofile}/>} />
+                    <PrivateRoute exact path="/" component={() => <CompanyHome logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/stories" component={() => <CStory stories={this.props.stories} logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/profile" component={() => <CProfile profile={this.props.profile} logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/addservice" component={() => <AddService auth={this.props.auth} addServices={this.props.addServices} services={this.props.services} logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/viewservice" component={() => <Facility deleteService={this.props.deleteService} auth={this.props.auth} facility={this.props.facility} logoutUser={this.props.logoutUser} />} />
+                    <PrivateRoute exact path="/editprofile" component={() => <CEditProfile profile={this.props.profile} logoutUser={this.props.logoutUser} updateProfile={this.props.updateProfile} updateprofile={this.props.updateprofile} />} />
                     <PrivateRoute exact path="/checkusers" component={() => <CompanyCheck deleteUser={this.props.deleteUser} check={this.props.check} auth={this.props.auth} logoutUser={this.props.logoutUser} />} />
                     <Redirect to="/" />
                 </Switch>
